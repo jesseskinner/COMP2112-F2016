@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Animations</title>
+  <style type="text/css">
+    div {
+      background: red;
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      left: 40%;
+      top: 40%;
+      transition: all 2s;
+    }
+    div:hover {
+      background: blue;
+      width: 200px;
+      height: 300px;
+      left: 20%;
+      top: 60%;
+      transform: rotate(45deg);
+    }
+  </style>
+</head>
+<body>
+
+    <canvas width="500" height="500"></canvas>
+
+  <div>
+      <form>
+          <input>
+          <button>Search</button>
+      </form>
+  </div>
+
+  <a href="#">change</a>
+
+  <script>
+    var a = document.querySelector('a')
+    a.addEventListener('click', function () {
+        var div = document.querySelector('div')
+        div.className = 'animate'
+    })
+  </script>
+</body>
+</html>

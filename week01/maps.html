@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 44.4119633, lng: -79.6712418},
+          zoom: 15
+        });
+
+        map.addListener('click', function(event) {
+            var latlng = {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng()
+            };
+            var marker = new google.maps.Marker({
+              position: latlng,
+              map: map,
+              title: 'Theatre',
+              animation: google.maps.Animation.BOUNCE,
+              icon: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/HAL9000.svg'
+            });
+            console.log(event)
+        });
+
+    setTimeout(function () {
+          var marker = new google.maps.Marker({
+            position: {lat: 44.4169595, lng: -79.6772418},
+            map: map,
+            title: 'Theatre',
+            animation: google.maps.Animation.BOUNCE,
+            icon: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/HAL9000.svg'
+          });
+    }, 5000);
+
+            var marker = new google.maps.Marker({
+              position: {lat: 44.7169595, lng: -79.6772418},
+              map: map,
+              title: '???'
+            });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXtZ4OV1mbQieYTR9iEQNQz_tKx3ntr74&callback=initMap"
+    async defer></script>
+  </body>
+</html>
