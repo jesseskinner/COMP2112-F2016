@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<head>
+    <meta charset="utf-8">
+    <title>DOM</title>
+</head>
+<body>
+
+<div>
+    <span class="abc">
+        Hello
+    </span>
+</div>
+
+<form method="POST">
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+// old old way
+// var tags = getElementsByTagName('span')
+//
+// for (var i=0;i < tags.length;i++) {
+//     if (tags[i].className === 'abc') {
+//         // do something
+//     }
+// }
+
+// jquery way
+// $('span.abc').each(function (tag) {
+//     // do something
+// })
+
+// latest way
+var tags = document.querySelectorAll('span.abc')
+
+for (var i=0; i < tags.length; i++) {
+    // do something
+}
+
+var onlyOne = document.querySelector('span.abc')
+
+// slightly futuristic
+// tags.forEach(function (tag) {
+//     // do stuff
+// })
+
+// Create form
+var form = document.createElement('form')
+form.setAttribute('method', 'POST')
+
+var button = document.createElement('button')
+button.setAttribute('type', 'submit')
+
+var text = document.createTextNode('Submit')
+
+button.appendChild(text)
+form.appendChild(button)
+
+var body = document.querySelector('body')
+
+body.appendChild(form)
+
+</script>
+
+
+
+</body>
+</html>
