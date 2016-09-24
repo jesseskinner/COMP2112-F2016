@@ -63,6 +63,42 @@ var body = document.querySelector('body')
 body.appendChild(form)
 
 
+// <div class="abc">
+//     <a href="http://google.com" target="_blank">
+//         Click here for Google
+//     </a>
+// </div>
+var div = document.createElement('div')
+div.setAttribute('class', 'abc')
+var a = document.createElement('a')
+a.setAttribute('href', 'http://google.com')
+a.setAttribute('target', '_blank')
+a.appendChild(document.createTextNode('Click here for Google'))
+div.appendChild(a)
+body.appendChild(div)
+
+// <ol>
+//     <li> <img src="cats.jpg" alt="Cats"> </li>
+//     <li> Hello, <strong>world!</strong> </li>
+// </ol>
+var ol = document.createElement('ol')
+var li = document.createElement('li')
+var img = document.createElement('img')
+img.setAttribute('src', 'cats.jpg')
+img.setAttribute('alt', 'Cats')
+li.appendChild(img)
+ol.appendChild(li)
+
+// reusing li variable for no good reason
+li = document.createElement('li')
+li.appendChild(document.createTextNode('Hello, ')) // note the extra space in here
+var strong = document.createElement('strong')
+strong.appendChild(document.createTextNode('world!'))
+li.appendChild(strong)
+ol.appendChild(li)
+
+body.appendChild(ol)
+
 // <script type="text/javascript" src="code.js" async>
 var script = document.createElement('script')
 script.setAttribute('type', 'text/javascript')
@@ -140,6 +176,25 @@ for (var i=0;i < forms.length;i++) {
     })
 }
 
+// <select name="colour">
+//     <option value="yellow">Yellow</option>
+//     <option value="blue">Blue</option>
+// </select>
+var select = document.createElement('select')
+select.setAttribute('name', 'colour')
+
+var option = document.createElement('option')
+option.setAttribute('value', 'yellow')
+option.appendChild(document.createTextNode('Yellow'))
+select.appendChild(option)
+
+// reusing the option variable for a different option
+option = document.createElement('option')
+option.setAttribute('value', 'blue')
+option.appendChild(document.createTextNode('Blue'))
+select.appendChild(option)
+
+body.appendChild(select)
 </script>
 
 </body>
