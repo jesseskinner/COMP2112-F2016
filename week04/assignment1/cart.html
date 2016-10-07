@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+
+    <div>
+        <p>Cart:</p>
+        <ul class="cart"></ul>
+    </div>
+
+    <form data-product="Product 1">
+        Product 1
+        <button>Add to cart</button>
+    </form>
+
+    <form data-product="Product 2">
+        Product 2
+        <button>Add to cart</button>
+    </form>
+
+    <script>
+    const cart = document.querySelector('.cart')
+
+    document.querySelectorAll('form').forEach(form =>
+        form.addEventListener('submit', event => {
+            event.preventDefault()
+
+            // create a list item in the cart
+            const li = document.createElement('li')
+
+
+            // get the name from the data-product attribute on the form
+            const name = form.getAttribute('data-product')
+
+            // give it the product name text
+            li.appendChild(document.createTextNode(name))
+
+            // create a 'remove' button
+            const remove = document.createElement('button')
+            remove.appendChild(document.createTextNode('X'))
+            remove.addEventListener('click', event =>
+                cart.removeChild(li)
+            )
+
+            // add the button to the li
+            li.appendChild(remove)
+
+            // add the <li> to the cart
+            cart.appendChild(li)
+        })
+    )
+    </script>
+</body>
+</html>

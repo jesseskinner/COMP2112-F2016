@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Micro version</title>
+    <style type="text/css">
+        body { background: orange }
+        button { display: block; margin: 15% auto; font-size: 200% }
+    </style>
+</head>
+<body>
+    <form>
+        <button>Click me!</button>
+    </form>
+
+    <form>
+        <button>Click me!</button>
+    </form>
+
+    <script>
+    // find all the forms and loop over them
+    document.querySelectorAll('form').forEach(form => {
+        // keep track of the number of clicks for each form
+        let clicks = 0
+
+        // add a submit event listener for each form
+        form.addEventListener('submit', event => {
+            // prevent the form from actually submitting
+            event.preventDefault()
+
+            // increase the click count
+            clicks = clicks + 1
+
+            // change the button text to have the click count
+            form.querySelector('button').innerHTML = clicks
+        })
+    })
+    </script>
+</body>
+</html>

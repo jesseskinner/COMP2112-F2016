@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
+        .popup {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            background: rgba(0,0,0,0.7)
+        }
+        .popup img {
+            display: block;
+            margin: 0 auto;
+            max-height: 90%;
+            max-width: 90%;
+        }
+    </style>
+    <meta
+</head>
+<body>
+    <a href="mario.jpg"><img src="mario-small.jpg" width="250"></a>
+    <a href="luigi.jpg"><img src="luigi-small.jpg" width="250"></a>
+    
+    <script>
+    // I'm trying to make the following html here:
+    //
+    // <div class="popup">
+    //     <img src="url">
+    //     <button>Close</button>
+    // </div>
+    function popup(url) {
+        const body = document.querySelector('body')
+
+        // create a popup container <div>
+        const popup = document.createElement('div')
+        popup.setAttribute('class', 'popup')
+
+        // create the image <img>
+        const img = document.createElement('img')
+        img.setAttribute('src', url)
+
+        // add the <img> to the <div>
+        popup.appendChild(img)
+
+        // add the <div> to the <body>
+        body.appendChild(popup)
+
+        // add a close <button>
+        const close = document.createElement('button')
+        close.appendChild(document.createTextNode('Close'))
+        popup.appendChild(close)
+
+        // remove the popup when the close button is clicked
+        close.addEventListener('click', event =>
+            body.removeChild(popup)
+        )
+
+        // or, we could remove when anything in the popup is clicked
+        popup.addEventListener('click', event =>
+            body.removeChild(popup)
+        )
+    }
+
+    // find all the <a> elements and loop over them
+    document.querySelectorAll('a').forEach(link =>
+        // take each link and attach a click listener to it
+        link.addEventListener('click', event => {
+            // prevent the default link clicking behaviour (don't change url)
+            event.preventDefault()
+
+            // instead, open a popup with the href from the <a> that was clicked
+            const href = link.getAttribute('href')
+            popup(href)
+        })
+    )
+    </script>
+</body>
+</html>
