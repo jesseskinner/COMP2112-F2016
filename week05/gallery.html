@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Gallery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        body {
+            text-align: center;
+        }
+        .popup {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            background: rgba(0,0,0,0.7)
+        }
+        .popup img {
+            display: block;
+            margin: 0 auto;
+            max-height: 90%;
+            max-width: 90%;
+        }
+    </style>
+    <meta
+</head>
+<body>
+    <a href="mario.jpg"><img src="mario-small.jpg" width="250"></a>
+    <a href="luigi.jpg"><img src="luigi-small.jpg" width="250"></a>
+
+    <script src="util.js"></script>
+    <script src="photogallery.js"></script>
+    <script src="app.js"></script>
+    <script>
+    // I'm trying to make the following html here:
+    //
+    // <div class="popup">
+    //     <img src="url">
+    //     <button>Close</button>
+    // </div>
+    App.init()
+    </script>
+</body>
+</html>
