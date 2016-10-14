@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table data</title>
+</head>
+<body>
+
+<table>
+</table>
+
+<script>
+var data = [
+    {"subject":"hi","body":"how r u?"},
+    {"subject":"URGENT","body":"FIX MY SITE"}
+]
+var table = document.querySelector('table')
+
+data.forEach(function (email, rowNumber) {
+    var tr = document.createElement('tr')
+    var tdSubject = document.createElement('td')
+    var tdBody = document.createElement('td')
+    var subject = document.createTextNode(email.subject)
+    var body = document.createTextNode(email.body)
+
+    tdSubject.appendChild(subject)
+    tdBody.appendChild(body)
+
+    // setAttribute data-row
+
+    tr.appendChild(tdSubject)
+    tr.appendChild(tdBody)
+
+    table.appendChild(tr)
+})
+
+table.addEventListener('click', function (event) {
+    var td = event.target
+
+    // getAttribute to set data[rowNumber]
+})
+
+</script>
+
+</body>
+</html>

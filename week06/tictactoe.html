@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table data</title>
+</head>
+<body>
+
+<table border="1" width="100" height="100">
+</table>
+
+<script>
+var data = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""]
+]
+var table = document.querySelector('table')
+var turn = 'X'
+
+function renderTable(data) {
+    table.innerHTML = ''
+
+    data.forEach(function (row, rowNumber) {
+        var tr = document.createElement('tr')
+
+        row.forEach(function (column, columnNumber) {
+            var td = document.createElement('td')
+
+            td.setAttribute('data-row', rowNumber)
+            td.setAttribute('data-column', columnNumber)
+
+            td.textContent = column
+
+            tr.appendChild(td)
+        })
+
+        table.appendChild(tr)
+    })
+}
+
+table.addEventListener('click', function (event) {
+    var td = event.target
+
+    if (td.nodeName !== 'TD') {
+        return
+    }
+
+    console.log(td)
+
+    var rowNumber = td.getAttribute('data-row')
+    var columnNumber = td.getAttribute('data-column')
+
+    data[rowNumber][columnNumber] = turn
+
+    if (turn === 'X') {
+        turn = 'O'
+    } else {
+        turn = 'X'
+    }
+
+    renderTable(data)
+})
+
+renderTable(data)
+
+</script>
+
+</body>
+</html>

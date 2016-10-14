@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <ol></ol>
+
+    <script>
+    var list = ["one","two","three","four"]
+    var ol = document.querySelector('ol')
+
+    // for (var i = 0; i < list.length; i++) {
+    //     var item = list[i]
+    //
+    //     var li = document.createElement('li')
+    //
+    //     var text = document.createTextNode(item)
+    //
+    //     li.appendChild(text)
+    //     ol.appendChild(li)
+    // }
+
+    function createListItem(item) {
+        var li = document.createElement('li')
+
+        var text = document.createTextNode(item)
+
+        li.appendChild(text)
+
+        return li
+    }
+
+    // var lis = list.map(createListItem)
+    //
+    // lis.forEach(function (li) {
+    //     ol.appendChild(li)
+    // })
+
+    list
+        .map(createListItem)
+        .forEach(function (li) {
+            ol.appendChild(li)
+        })
+    </script>
+
+</body>
+</html>
