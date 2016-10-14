@@ -19,34 +19,49 @@ var data = [
 // get the <table> so we can append rows
 var table = document.querySelector('table')
 
-// loop over each email and create a row
-data.forEach(function (email, rowNumber) {
-    // create <tr><td>subject</td><td>body</td></tr>
-    var tr = document.createElement('tr')
-    var tdSubject = document.createElement('td')
-    var tdBody = document.createElement('td')
-    var subject = document.createTextNode(email.subject)
-    var body = document.createTextNode(email.body)
+function renderTable(data) {
+    // erase the contents
+    table.innerHTML = ''
 
-    tdSubject.appendChild(subject)
-    tdBody.appendChild(body)
+    // loop over each email and create a row
+    data.forEach(function (email, rowNumber) {
+        // create <tr><td>subject</td><td>body</td></tr>
+        var tr = document.createElement('tr')
+        var tdSubject = document.createElement('td')
+        var tdBody = document.createElement('td')
+        var subject = document.createTextNode(email.subject)
+        var body = document.createTextNode(email.body)
 
-    // setAttribute data-row
+        tdSubject.appendChild(subject)
+        tdBody.appendChild(body)
 
-    tr.appendChild(tdSubject)
-    tr.appendChild(tdBody)
+        // setAttribute data-row
+        tr.setAttribute('data-row', rowNumber)
 
-    table.appendChild(tr)
-})
+        tr.appendChild(tdSubject)
+        tr.appendChild(tdBody)
+
+        table.appendChild(tr)
+    })
+}
 
 // listen for clicks on the <table>
 // TODO: change the data when a <td> is clicked
 table.addEventListener('click', function (event) {
     var td = event.target
+    var tr = td.parentNode
 
+    var rowNumber = tr.getAttribute('data-row')
+
+    var email = data[rowNumber]
+
+    email.subject = 'read'
+
+    renderTable(data)
     // TODO: use getAttribute to set data[rowNumber]
 })
 
+renderTable(data)
 </script>
 
 </body>
