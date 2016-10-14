@@ -6,10 +6,14 @@
 </head>
 <body>
 
+    <!-- our list items will go here -->
     <ol></ol>
 
     <script>
+    // this is an array of strings
     var list = ["one","two","three","four"]
+
+    // get the <ol> so we can append to it
     var ol = document.querySelector('ol')
 
     // for (var i = 0; i < list.length; i++) {
@@ -23,6 +27,7 @@
     //     ol.appendChild(li)
     // }
 
+    // this function creates an <li> with text and returns it
     function createListItem(item) {
         var li = document.createElement('li')
 
@@ -39,8 +44,12 @@
     //     ol.appendChild(li)
     // })
 
+    // take the list,
     list
+        // make a new list of <li>s,
         .map(createListItem)
+
+        // finally, append each <li> to the <ol>
         .forEach(function (li) {
             ol.appendChild(li)
         })

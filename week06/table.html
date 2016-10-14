@@ -10,13 +10,18 @@
 </table>
 
 <script>
+// our data is a list of emails
 var data = [
     {"subject":"hi","body":"how r u?"},
     {"subject":"URGENT","body":"FIX MY SITE"}
 ]
+
+// get the <table> so we can append rows
 var table = document.querySelector('table')
 
+// loop over each email and create a row
 data.forEach(function (email, rowNumber) {
+    // create <tr><td>subject</td><td>body</td></tr>
     var tr = document.createElement('tr')
     var tdSubject = document.createElement('td')
     var tdBody = document.createElement('td')
@@ -34,10 +39,12 @@ data.forEach(function (email, rowNumber) {
     table.appendChild(tr)
 })
 
+// listen for clicks on the <table>
+// TODO: change the data when a <td> is clicked
 table.addEventListener('click', function (event) {
     var td = event.target
 
-    // getAttribute to set data[rowNumber]
+    // TODO: use getAttribute to set data[rowNumber]
 })
 
 </script>
