@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table data</title>
+</head>
+<body>
+
+<!-- using 1990s style attributes for table -->
+<table border="1" width="100" height="100">
+</table>
+
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+<script>
+// get the <table> element so we can append to it
+var table = document.querySelector('table')
+var turn = 'X'
+
+// this function renders the table, used when data changes
+function renderTable(data) {
+    // erase the contents of the <table>
+    // using this one quick trick
+    table.innerHTML = ''
+
+    // loop over each row of the data
+    data.forEach(function (row, rowNumber) {
+        // create a <tr> for each row
+        var tr = document.createElement('tr')
+
+        // loop over each column in the row data
+        row.forEach(function (column, columnNumber) {
+            // create a <td> for each column
+            var td = document.createElement('td')
+
+            // set data attributes so we know what was clicked
+            td.setAttribute('data-row', rowNumber)
+            td.setAttribute('data-column', columnNumber)
+
+            // update the text
+            // this is a shortcut for document.createTextNode
+            td.textContent = column
+
+            // append the <td> to the <tr>
+            tr.appendChild(td)
+        })
+
+        // append the <tr> to the <table>
+        table.appendChild(tr)
+    })
+}
+
+function startGame(data) {
+    // listen for clicks on the table
+    table.addEventListener('click', function (event) {
+        // figure out what was clicked
+        var td = event.target
+
+        // make sure a <td> was clicked,
+        // if not we will ignore this
+        if (td.nodeName !== 'TD') {
+            return
+        }
+
+        // log the <td> so we can see what was clicked in the console
+        console.log(td)
+
+        // pull the row and column numbers from the data attributes
+        var rowNumber = td.getAttribute('data-row')
+        var columnNumber = td.getAttribute('data-column')
+
+        // update the data using either 'X' or 'O'
+        data[rowNumber][columnNumber] = turn
+
+        // save changes to the server
+        $.ajax({
+            url: 'tictactoe.php',
+            type: 'POST',
+            data: {
+                board: data
+            },
+            error: function (e) {
+                alert('Failed to save game')
+            }
+        })
+
+        // change whose turn it is for next time
+        if (turn === 'X') {
+            turn = 'O'
+        } else {
+            turn = 'X'
+        }
+
+        // re-render the table using the updated data
+        renderTable(data)
+    })
+
+    // render the table at least once when the page loads
+    renderTable(data)
+}
+
+$.ajax({
+    url: 'tictactoe.php',
+    type: 'GET',
+    dataType: 'json',
+    success: startGame
+})
+
+</script>
+
+</body>
+</html>
