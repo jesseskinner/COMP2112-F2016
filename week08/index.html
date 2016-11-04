@@ -27,16 +27,33 @@ $.ajax({
 function renderResults(data) {
     var ol = document.querySelector('#results')
 
-    data.items.forEach(function (item) {
+    console.log(data)
+
+    data.items.forEach(function (book) {
         var li = document.createElement('li')
         var h1 = document.createElement('h1')
         var img = document.createElement('img')
 
-        h1.textContent = item.volumeInfo.title
-        img.src = item.volumeInfo.imageLinks.thumbnail
+        console.log(book)
+
+        h1.textContent = book.volumeInfo.title
+        img.src = book.volumeInfo.imageLinks.thumbnail
 
         li.appendChild(h1)
+
+        book.volumeInfo.authors.forEach(function (author) {
+            var h2 = document.createElement('h2')
+            h2.textContent = author
+            li.appendChild(h2)
+        })
+
         li.appendChild(img)
+
+        var description = document.createElement('p')
+        description.textContent = book.volumeInfo.description
+
+        li.appendChild(description)
+
         ol.appendChild(li)
     })
 }
