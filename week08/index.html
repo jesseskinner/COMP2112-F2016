@@ -8,10 +8,15 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 
+<p style="display:none" id="loading">Loading...</p>
+
 <ol id="results"></ol>
 
 <script>
 var favouriteBook = prompt('What is your favourite book?')
+
+var loading = document.querySelector('#loading')
+loading.style.display = 'block'
 
 $.ajax({
     url: 'https://www.googleapis.com/books/v1/volumes',
@@ -20,6 +25,8 @@ $.ajax({
     },
     dataType: 'jsonp',
     success: function (data) {
+        loading.style.display = 'none'
+
         renderResults(data)
     }
 })
@@ -41,13 +48,21 @@ function renderResults(data) {
 
         li.appendChild(h1)
 
-        book.volumeInfo.authors.forEach(function (author) {
+        if (book.volumeInfo.authors) {
             var h2 = document.createElement('h2')
-            h2.textContent = author
+            h2.textContent = book.volumeInfo.authors.join(', ')
             li.appendChild(h2)
-        })
+        }
 
         li.appendChild(img)
+
+        if (book.volumeInfo.categories) {
+            var categories = document.createElement('p')
+
+            categories.textContent = book.volumeInfo.categories.join(' - ')
+
+            li.appendChild(categories)
+        }
 
         var description = document.createElement('p')
         description.textContent = book.volumeInfo.description
