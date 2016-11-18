@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internet APIs</title>
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+<p style="display:none" id="loading">Loading...</p>
+
+<ol id="results"></ol>
+
+<script>
+var favouriteBook = prompt('What is your favourite book?')
+
+var loading = document.querySelector('#loading')
+loading.style.display = 'block'
+
+$.ajax({
+    url: 'https://www.googleapis.com/books/v1/volumes',
+    data: {
+        q: favouriteBook
+    },
+    dataType: 'jsonp',
+    success: function (data) {
+        loading.style.display = 'none'
+
+        renderResults(data)
+    }
+})
+//
+// function renderResults(data) {
+//     var ol = document.querySelector('#results')
+//
+//     console.log(data)
+//
+//     data.items.forEach(function (book) {
+//         var li = document.createElement('li')
+//         var h1 = document.createElement('h1')
+//         var img = document.createElement('img')
+//
+//         console.log(book)
+//
+//         h1.textContent = book.volumeInfo.title
+//         img.src = book.volumeInfo.imageLinks.thumbnail
+//
+//         li.appendChild(h1)
+//
+//         if (book.volumeInfo.authors) {
+//             var h2 = document.createElement('h2')
+//             h2.textContent = book.volumeInfo.authors.join(', ')
+//             li.appendChild(h2)
+//         }
+//
+//         li.appendChild(img)
+//
+//         if (book.volumeInfo.categories) {
+//             var categories = document.createElement('p')
+//
+//             categories.textContent = book.volumeInfo.categories.join(' - ')
+//
+//             li.appendChild(categories)
+//         }
+//
+//         var description = document.createElement('p')
+//         description.textContent = book.volumeInfo.description
+//
+//         li.appendChild(description)
+//
+//         ol.appendChild(li)
+//     })
+// }
+
+function renderResults(data) {
+    var ol = document.querySelector('#results')
+    var html = ''
+
+    data.items.forEach(function (book) {
+        html += `
+            <li>
+                <h1>${ book.volumeInfo.title }</h1>
+                <h2></h2>
+                <img src="${
+                    book.volumeInfo.imageLinks.thumbnail
+                }">
+                <p></p>
+                <p></p>
+            </li>
+        `
+    })
+
+    ol.innerHTML = html
+}
+
+</script>
+
+</body>
+</html>
