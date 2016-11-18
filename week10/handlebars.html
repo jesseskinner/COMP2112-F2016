@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internet APIs</title>
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+<script src="node_modules/handlebars/dist/handlebars.js"></script>
+
+<p style="display:none" id="loading">Loading...</p>
+
+<ol id="results"></ol>
+
+<script>
+var favouriteBook = prompt('What is your favourite book?')
+
+var loading = document.querySelector('#loading')
+loading.style.display = 'block'
+
+$.ajax({
+    url: 'https://www.googleapis.com/books/v1/volumes',
+    data: {
+        q: favouriteBook
+    },
+    dataType: 'jsonp',
+    success: function (data) {
+        loading.style.display = 'none'
+
+        renderResults(data)
+    }
+})
+//
+// function renderResults(data) {
+//     var ol = document.querySelector('#results')
+//
+//     console.log(data)
+//
+//     data.items.forEach(function (book) {
+//         var li = document.createElement('li')
+//         var h1 = document.createElement('h1')
+//         var img = document.createElement('img')
+//
+//         console.log(book)
+//
+//         h1.textContent = book.volumeInfo.title
+//         img.src = book.volumeInfo.imageLinks.thumbnail
+//
+//         li.appendChild(h1)
+//
+//         if (book.volumeInfo.authors) {
+//             var h2 = document.createElement('h2')
+//             h2.textContent = book.volumeInfo.authors.join(', ')
+//             li.appendChild(h2)
+//         }
+//
+//         li.appendChild(img)
+//
+//         if (book.volumeInfo.categories) {
+//             var categories = document.createElement('p')
+//
+//             categories.textContent = book.volumeInfo.categories.join(' - ')
+//
+//             li.appendChild(categories)
+//         }
+//
+//         var description = document.createElement('p')
+//         description.textContent = book.volumeInfo.description
+//
+//         li.appendChild(description)
+//
+//         ol.appendChild(li)
+//     })
+// }
+
+var template = Handlebars.compile(`
+    <li>
+        <h1>{{ title }}</h1>
+
+        {{#if authors }}
+            <h2>Authors: {{ authors }}</h2>
+        {{/if}}
+    </li>
+`)
+
+function renderResults(data) {
+    var ol = document.querySelector('#results')
+    var html = ''
+
+    // hack the security hole:
+    data.items[0].volumeInfo.imageLinks.thumbnail =
+        'http://books.google.com/books/content?id=T0L2nUOPUqAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" onload="alert(\'hi\')'
+
+    data.items.forEach(function (book) {
+        html += template({
+            title: book.volumeInfo.title,
+            authors: book.volumeInfo.authors && book.volumeInfo.authors.join(', ')
+        })
+    })
+
+    ol.innerHTML = html
+}
+
+</script>
+
+</body>
+</html>
