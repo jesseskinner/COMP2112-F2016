@@ -77,16 +77,40 @@ function renderResults(data) {
     var ol = document.querySelector('#results')
     var html = ''
 
+    // hack the security hole:
+    data.items[0].volumeInfo.imageLinks.thumbnail =
+        'http://books.google.com/books/content?id=T0L2nUOPUqAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" onload="alert(\'hi\')'
+
     data.items.forEach(function (book) {
         html += `
             <li>
                 <h1>${ book.volumeInfo.title }</h1>
-                <h2></h2>
+        `
+
+        if (book.volumeInfo.authors) {
+            html += `
+                <h2>Authors: ${
+                    book.volumeInfo.authors.join(', ')
+                }</h2>
+            `
+        }
+
+        if (book.volumeInfo.imageLinks) {
+            html += `
                 <img src="${
-                    book.volumeInfo.imageLinks.thumbnail
+                  book.volumeInfo.imageLinks.thumbnail
                 }">
-                <p></p>
-                <p></p>
+            `
+        }
+
+        if (book.volumeInfo.categories) {
+            html += `
+                <p>${ book.volumeInfo.categories.join(' - ') }</p>
+            `
+        }
+
+        html += `
+                <p>${ book.volumeInfo.description }</p>
             </li>
         `
     })
