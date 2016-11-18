@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery</title>
+</head>
+<body>
+
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+
+<script>
+$('<div>Hello</div>')
+    .css({
+        background: 'green',
+        color: 'yellow'
+    })
+    .width(200)
+    .height(200)
+    .appendTo('body')
+    .hide()
+    .fadeIn(2000)
+</script>
+
+</body>
+</html>
